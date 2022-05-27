@@ -1,0 +1,71 @@
+<div class="gallery">
+    <% if(typeof challenges === "object" && challenges.length > 0) { %>
+        <% for(var i=0; i < challenges.length; i++) { %>
+            <div class="gallery-block col-3">
+                <div class="gallery-image gradient">
+                    <img class="lazy" data-src="<%= challenges[i].pp.get(1).url %>" alt="ch"
+                        src="/images/pix.gif" />
+                </div>
+                <div class="gallery-title">
+                    <a href="<%= challenges[i].href %>"><%= challenges[i].fullName %></a>
+                </div>
+            </div>
+        <% } %>
+    <% } else { %>
+        <div class="al al-danger"><%= locale.P_CHALLENGES.NOT_EXIST %></div>
+    <% } %>
+</div>
+<div class="clear"></div>
+<% if(self) { %>
+    <hr>
+    <h3 class="light"><%= locale.format(locale.P_CHALLENGE.CREATE, locale.P_CHALLENGE.TITLE) %></h3>
+    <% if (typeof active === 'string' && active === 'challenges') { %>
+        <% if (typeof success === 'string') { %>
+        <div class="al al-success">
+            <%= success %>
+        </div>
+        <% }
+        else if(typeof error === 'string') { %>
+        <div class="al al-danger">
+            <%= error %>
+        </div>
+        <% } %>
+    <% } %>
+    <form method="post" action="/challenge/create?_csrf=<%= csrfToken %>" enctype="multipart/form-data">
+        <input type="hidden" name="username" value="<%= community.displayUsername %>" />
+        <div class="form-group">
+            <label for="cphoto"><%= locale.MAIN.PHOTO %></label>
+            <div class="form-photo">
+                <div class="form-photo-select ch">
+                    <span><%= locale.MAIN.SELECT_PHOTO %></span>
+                    <input type="file" id="cphoto" name="cphoto" class="form-input-photo"
+                        accept="image/jpeg,image/png">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="chname"><%= locale.MAIN.NAME %></label>
+            <input type="text" class="form-input" name="chname" id="chname" required
+                autocomplete="nope" value="<%= (typeof fields !== 'undefined') ? fields.chname : '' %>" />
+        </div>
+        <div class="form-group">
+            <label for="cdesc"><%= locale.MAIN.DESC %></label>
+            <textarea name="cdesc" id="cdesc" class="form-input"><%= (typeof fields !== 'undefined') ? fields.cdesc : '' %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="cstart"><%= locale.P_CHALLENGE.START_TIME %> (<%= locale.MAIN.UTC %>)</label>
+            <input type="datetime-local" id="cstart" name="cstart" class="form-input"
+                min="<%= challengeDates.start.min.htmlForm %>" max="<%= challengeDates.start.max.htmlForm %>"
+                value="<%= (typeof fields !== 'undefined') ? fields.cstart : '' %>">
+        </div>
+        <div class="form-group">
+            <label for="cend"><%= locale.P_CHALLENGE.END_TIME %> (<%= locale.MAIN.UTC %>)</label>
+            <input type="datetime-local" id="cend" name="cend" class="form-input"
+                min="<%= challengeDates.end.min.htmlForm %>" max="<%= challengeDates.end.max.htmlForm %>"
+                value="<%= (typeof fields !== 'undefined') ? fields.cend : '' %>">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="form-button"><%= locale.MAIN.CREATE %></button>
+        </div>
+    </form>
+<% } %>

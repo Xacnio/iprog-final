@@ -1,0 +1,54 @@
+<h3 class="title light">Community</h3>
+<% if (typeof g_success === 'string') { %>
+<div class="al al-success">
+    <%= g_success %>
+</div>
+<% }
+else if(typeof g_error === 'string') { %>
+<div class="al al-danger">
+    <%= g_error %>
+</div>
+<% } %>
+<div class="profile">
+    <div class="profile-head">
+        <div class="profile-head-bg">
+            <div class="profile-pic gradient">
+                <img class="lazy" data-src="<%= community.pp.get(1).url %>" src="/images/pix.gif">
+            </div>
+            <div class="profile-name">
+                <div class="profile-fullname"><%= community.fullName %> <div class="profile-username">@<%= community.displayUsername %></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-block">
+        <div class="profile-menu">
+            <ul>
+                <li class="<%= (typeof active === 'undefined') ? 'active' : '' %>"><a href="#profile"><%= locale.P_COMMUNITY.ABOUT_US %></a></li>
+                <% if(self) { %>
+                    <li class="<%= (typeof active === 'string' && active === 'edit') ? 'active' : '' %>"><a href="#edit"><%= locale.P_COMMUNITY.EDIT %></a></li>
+                    <li class="<%= (typeof active === 'string' && active === 'moderators') ? 'active' : '' %>"><a href="#moderators"><%= locale.MAIN.MODERATORS %></a></li>
+                <% } %>
+                <li class="<%= (typeof active === 'string' && active === 'challenges') ? 'active' : '' %>"><a href="#challenges"><%= locale.MAIN.CHALLENGES %></a></li>
+            </ul>
+        </div>
+        <div class="profile-content">
+            <div class="tab<%= (typeof active === 'undefined') ? ' open in' : '' %>" tab-name="#profile">
+                <p><%- md(community.aboutUs) %></p>
+            </div>
+            <% if(self) { %>
+            <div class="tab<%= (typeof active === 'string' && active === 'edit') ? ' open in' : '' %>" tab-name="#edit">
+                <%- include('community/editcommunity') %>
+            </div>
+            <div class="tab<%= (typeof active === 'string' && active === 'moderators') ? ' open in' : '' %>" tab-name="#moderators">
+                <%- include('community/moderators') %>
+            </div>
+            <% } %>
+            <div class="tab<%= (typeof active === 'string' && active === 'challenges') ? ' open in' : '' %>" tab-name="#challenges">
+                <%- include('community/challenges') %>
+            </div>
+        </div>
+    </div>
+</div>
+<% if(typeof active === 'string') { %>
+    <script>window.history.replaceState( {} , 'foo', window.location.href + '#<%= active %>' );</script>
+<% } %>

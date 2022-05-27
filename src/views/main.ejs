@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= (typeof title !== "undefined") ? title + " - " + process.env.SITE_NAME : process.env.SITE_NAME %>
+    </title>
+
+    <%- include('partials/head') %>
+    
+</head>
+
+<body>
+    <%- include('partials/header') %>
+
+    <% if (typeof top !== 'undefined') { %>
+    <%- include(top) %>
+    <% } %>
+
+    <!-- MAIN CONTENT -->
+    <div class="wrapper">
+        <% if (typeof content !== 'undefined') { %>
+        <%- include(content) %>
+        <% } %>     
+    </div>
+
+    <%- include('partials/footer') %>
+
+    <!-- CONTENT SCRIPTS (LOADING AFTER THE CONTENT) -->
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

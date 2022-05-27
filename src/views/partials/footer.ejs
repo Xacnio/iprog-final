@@ -1,0 +1,12 @@
+<!-- FOOTER & COPYRIGHT -->
+<div class="footer">
+    <div class="copyright">Website Name &copy; 2019-2022, <%= locale.MAIN.ARR %>. 
+        <% if(!locals.signedIn) { %>
+            <select class="lang-selector" onchange="document.location.href = (this.value);">
+                <% Object.keys(lngs).forEach(function(prop) { %>
+                    <option value="<%= lngs[prop].url() %>"<% if(lang === lngs[prop].code) { %><%= " selected" %><% } %>><%= lngs[prop].name %></option>
+                <% }); %>
+            </select>
+        <% } %>
+    </div>
+</div>

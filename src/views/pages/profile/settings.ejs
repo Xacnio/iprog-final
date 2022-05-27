@@ -1,0 +1,28 @@
+<h3 class="light"><%= locale.P_PROFILE.SETTINGS %></h3>
+<% if (typeof active === 'string' && active === 'settings') { %>
+    <% if (typeof success === 'string') { %>
+    <div class="al al-success">
+        <%= success %>
+    </div>
+    <% }
+    else if(typeof error === 'string') { %>
+    <div class="al al-danger">
+        <%= error %>
+    </div>
+    <% } %>
+<% } %>
+<form method="post" action="">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <input type="hidden" name="type" value="3" />
+    <div class="form-group">
+        <label for="lang"><%= locale.MAIN.LANGUAGE %></label>
+        <select name="lang" class="form-input">
+            <% Object.keys(lngs).forEach(function(prop) { %>
+                <option value="<%= lngs[prop].code %>"<% if(profile.lang === lngs[prop].code) { %><%= " selected" %><% } %>><%= lngs[prop].name %></option>
+            <% }); %>
+        </select>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="form-button"><%= locale.MAIN.SAVE %></button>
+    </div>
+</form>

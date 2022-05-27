@@ -1,0 +1,48 @@
+<div class="fp-main">
+    <div class="fp-header"><%= locale.P_LOGIN.TITLE %></div>
+    <div class="fp-content">
+        <% if (typeof success === 'string') { %>
+            <div class="al al-success">
+                <%= success %>
+                <meta http-equiv="refresh" content="1;URL='/'" />    
+            </div>
+        <% } %>
+        <% if (typeof error === 'string') { %>
+            <div class="al al-danger">
+                <%= error %>
+            </div>
+        <% } %>
+        <div class="rg-connect">
+            <a href="#" class="rg-with rg-google disabled">
+                <div class="rg-icon"><i class="fa fa-google" aria-hidden="true"></i></div>
+                <div class="rg-text"><%= locale.format(locale.MAIN.CONNECT_WITH, 'Google') %></div>
+            </a>
+            <a href="#" class="rg-with rg-facebook disabled">
+                <div class="rg-icon"><i class="fa fa-facebook" aria-hidden="true"></i></div>
+                <div class="rg-text"><%= locale.format(locale.MAIN.CONNECT_WITH, 'Facebook') %></div>
+            </a>
+            <a href="#" class="rg-with rg-apple disabled">
+                <div class="rg-icon"><i class="fa fa-apple" aria-hidden="true"></i></div>
+                <div class="rg-text"><%= locale.format(locale.MAIN.CONNECT_WITH, 'Apple') %></div>
+            </a>
+        </div>
+        <p class="or-text"><%= locale.MAIN.OR.toUpperCase() %></p>
+        <form method="post" action="/login" autocomplete="off">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="form-group">
+                <label for="email"><%= locale.MAIN.EMAIL %></label>
+                <input type="email" class="form-input" name="email" id="email" required autocomplete="nope" value="<%= (typeof email === 'string') ? email : '' %>" />
+            </div>
+            <div class="form-group">
+                <label for="password"><%= locale.MAIN.PASSWORD %></label>
+                <input type="password" class="form-input" name="password" id="password" required autocomplete="nope" />
+            </div>
+            <div class="form-group-centered">
+                <button type="submit" class="form-button"><%= locale.MAIN.LOGIN %></button>
+            </div>
+            <div class="form-group-centered">
+                <a href="#"><%= locale.P_LOGIN.RESET_PASSWORD %></a>
+            </div>
+        </form>
+    </div>
+</div>

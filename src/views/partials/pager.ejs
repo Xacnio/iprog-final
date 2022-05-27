@@ -1,0 +1,11 @@
+<% if(pageInfo.total > 10) { %>
+    <% for(let s=(pageInfo.total-4 >= 0) ? pageInfo.total-4 : 0, i = s; i < (s+4 <= pageInfo.total) ? s : pageInfo.total; i++) { %>
+        <a href="<%= pageInfo.url(i) %>"><button class="<%= (pageInfo.current === i) ? 'form-button2' : 'form-button' %>"><%= i+1 %></button></a>
+    <% } %>
+<% } else if(pageInfo.total > 0) { %>
+    <% for(let i = 0; i < pageInfo.total; i++) { %>
+        <a href="<%= pageInfo.url(i) %>"><button class="<%= (pageInfo.current === i) ? 'form-button2' : 'form-button' %>"><%= i+1 %></button></a>
+    <% } %>
+<% } else { %>
+    
+<% } %>

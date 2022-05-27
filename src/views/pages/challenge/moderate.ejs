@@ -1,0 +1,41 @@
+<h3 class="light"><%= locale.MAIN.MODERATION %></h3>
+<% if(typeof contributions === "object") { %>
+    <% if(contributions.length === 0) { %>
+        <div class="al al-danger">
+            <%= locale.SDFSDF %>
+        </div>
+    <% } %>
+    <% for(var i=0; i < contributions.length; i++) { %>
+        <div class="gallery-block col-3" style="margin-top: 50px;">
+            <div class="gallery-image gradient">
+                <a href="<%= contributions[i].image.get(1).url %>" target="_blank">
+                    <img class="lazy" data-src="<%= contributions[i].image.get(0).url %>" alt="" src="/images/pix.gif" />
+                </a>
+            </div>
+            <div class="gallery-desc" style="margin-top: 8px;">
+                <% if(contributions[i].status === 0) { %>
+                    <a href="<%= challenge.href%>/approve/<%= contributions[i].id %>?page=<%= pageInfo.current %>">
+                        <button type="button" class="form-button2"><%= locale.P_CHALLENGE.MODERATION.APPROVE %></button>
+                    </a>
+                    <a href="<%= challenge.href%>/reject/<%= contributions[i].id %>?page=<%= pageInfo.current %>">
+                        <button type="button" class="form-button"><%= locale.P_CHALLENGE.MODERATION.REJECT %></button>
+                    </a>
+                <% } else if(contributions[i].status === 1) { %>
+                    <button type="button" class="form-button2 al-success"><%= locale.P_CHALLENGE.MODERATION.APPROVED %></button>
+                    <a href="<%= challenge.href%>/revert/<%= contributions[i].id %>?page=<%= pageInfo.current %>">
+                        <button type="button" class="form-button"><%= locale.P_CHALLENGE.MODERATION.REVERT %></button>
+                    </a>
+                <% } else if(contributions[i].status === 2) { %>
+                    <button type="button" class="form-button2 al-danger"><%= locale.P_CHALLENGE.MODERATION.REJECTED %></button>
+                    <a href="<%= challenge.href%>/revert/<%= contributions[i].id %>?page=<%= pageInfo.current %>">
+                        <button type="button" class="form-button"><%= locale.P_CHALLENGE.MODERATION.REVERT %></button>
+                    </a>
+                <% } %>
+            </div>
+        </div>
+    <% } %>
+    <div class="clear"></div>
+    <div class="gallery-end">
+        <%- include('../../partials/pager') %>
+    </div>
+<% } %>

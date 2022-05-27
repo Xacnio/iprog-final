@@ -1,0 +1,59 @@
+<h3 class="title light"><%= locale.P_PROFILE.TITLE %></h3>
+<% if (typeof g_success === 'string') { %>
+    <div class="al al-success">
+        <%= g_success %>
+    </div>
+<% }
+else if(typeof g_error === 'string') { %>
+<div class="al al-danger">
+    <%= g_error %>
+</div>
+<% } %>
+<div class="profile">
+    <div class="profile-head">
+        <div class="profile-head-bg">
+            <div class="profile-pic gradient">
+                <img class="lazy" data-src="<%= profile.pp.get(1).url %>" src="/images/pix.gif">
+            </div>
+            <div class="profile-name">
+                <div class="profile-fullname"><%= profile.fullName %> <div class="profile-username">@<%= profile.displayUsername %></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="profile-block">
+        <div class="profile-menu">
+            <ul>
+                <li class="<%= (typeof active === 'undefined') ? 'active' : '' %>"><a href="#profile"><%= locale.P_PROFILE.ABOUT_ME %></a></li>
+                <% if(self) { %>
+                    <li class="<%= (typeof active === 'string' && active === 'password') ? 'active' : '' %>"><a href="#password"><%= locale.P_PROFILE.CHANGE_PASS %></a></li>
+                    <li class="<%= (typeof active === 'string' && active === 'edit') ? 'active' : '' %>"><a href="#edit"><%= locale.P_PROFILE.EDIT %></a></li>
+                    <li class="<%= (typeof active === 'string' && active === 'settings') ? 'active' : '' %>"><a href="#settings"><%= locale.P_PROFILE.SETTINGS %></a></li>
+                <% } %>
+                <li class="<%= (typeof active === 'string' && active === 'communities') ? 'active' : '' %>"><a href="#communities"><%= locale.MAIN.COMMUNITIES %></a></li>
+            </ul>
+        </div>
+        <div class="profile-content">
+            <div class="tab<%= (typeof active === 'undefined') ? ' open in' : '' %>" tab-name="#profile">
+                <h3 class="light"><%= locale.P_PROFILE.ABOUT_ME %></h3>
+                <p><%- md(profile.aboutMe) %></p>
+            </div>
+            <div class="tab<%= (typeof active === 'string' && active === 'communities') ? ' open in' : '' %>" tab-name="#communities">
+                <%- include('profile/communities') %>
+            </div>
+            <% if(self) { %>
+            <div class="tab<%= (typeof active === 'string' && active === 'password') ? ' open in' : '' %>" tab-name="#password">
+                <%- include('profile/changepass') %>
+            </div>
+            <div class="tab<%= (typeof active === 'string' && active === 'edit') ? ' open in' : '' %>" tab-name="#edit">
+                <%- include('profile/editprofile') %>
+            </div>
+            <div class="tab<%= (typeof active === 'string' && active === 'settings') ? ' open in' : '' %>" tab-name="#settings">
+                <%- include('profile/settings') %>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+<% if(typeof active === 'string') { %>
+    <script>window.history.replaceState( {} , 'foo', window.location.href + '#<%= active %>' );</script>
+<% } %>

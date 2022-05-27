@@ -1,0 +1,21 @@
+<a href="<%= challenge.href %>"><button class="form-button"><%= locale.MAIN.BACK %></button></a>
+<a href="<%= challenge.href %>/edit"><button class="<%= (path.includes('/edit')) ? 'form-button2' : 'form-button' %>"><%= locale.P_CHALLENGE.EDIT %></button></a>
+<a href="<%= challenge.href %>/moderate"><button class="<%= (path.endsWith('/moderate')) ? 'form-button2' : 'form-button' %>"><%= locale.MAIN.MODERATION %></button></a>
+<a href="<%= challenge.href %>/moderate/archive"><button class="<%= (path.endsWith('/moderate/archive')) ? 'form-button2' : 'form-button' %>"><%= locale.MAIN.MODERATION %> (<%= locale.MAIN.TRASH %>)</button></a>
+
+<% if (typeof success === 'string') { %>
+<div class="al al-success" style="margin-top: 20px;">
+    <%= success %>
+</div>
+<% }
+else if(typeof error === 'string') { %>
+<div class="al al-danger" style="margin-top: 20px;">
+    <%= error %>
+</div>
+<% } %>
+
+<% if(path.includes('/edit')) { %>
+    <%- include('editchallenge') %>
+<% } else if(path.includes('/moderate')) { %>
+    <%- include('moderate') %>
+<% } %>

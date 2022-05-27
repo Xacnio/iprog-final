@@ -1,0 +1,9 @@
+<h1><%= (typeof title === "string") ? title : locale.MAIN.ERROR %></h1>
+<% if (typeof error === 'string') { %>
+    <div class="al al-danger">
+        <%= error %> 
+    </div>
+<% } %>
+<a href="javascript:history.back()"><button class="form-button"><%= locale.MAIN.BACK %></button></a>
+<a href="/"><button class="form-button"><%= locale.MAIN.GOTO_HOME %></button></a>
+

@@ -1,0 +1,25 @@
+<div class="home-cover blur" style="background-image: url(<%= challenge.pp.get(2).url %>);">
+    <div class="home-cover-bg2">
+    </div>
+</div>
+<div class="home-cover-wrapper2">
+    <div class="home-cover-column">
+        <div class="home-cover-content">
+            <h1><%= challenge.fullName %></h1>
+            <% if(!challenge.terminated) { %>
+            <p><i class="fa fa-clock-o"></i> <%= locale.P_CHALLENGE.START_TIME %>: <%= jd(challenge.startUTC).showForm %> (UTC)</p>
+            <p><i class="fa fa-clock-o"></i> <%= locale.P_CHALLENGE.END_TIME %>: <%= jd(challenge.endUTC).showForm %> (UTC)</p>
+            <% } %>
+            <p><i class="fa fa-inbox"></i> <%= (challenge.terminated) ? locale.P_CHALLENGE.STATUS_TERMINATED : locale.P_CHALLENGE.STATUS_ACTIVE %></p>
+            <ul class="home-cover-buttons">
+                <li class="active"><a href="<%= challenge.href %>/join"><%= locale.P_CHALLENGE.JOIN %></a></li>
+                <li><a href="<%= challenge.href %>#contributions"><%= locale.P_CHALLENGE.CONTRIBUTIONS %></a></li>
+        </div>
+    </div>
+    <div class="home-cover-column home-cover-pic">
+        <a href="<%= challenge.community.href %>">
+            <div class="home-cover-pic-text"><span><%= challenge.community.fullName %></span></div>
+            <img class="lazy" alt="prc" src="<%= challenge.community.pp.get(2).url %>">
+        </a>
+    </div>
+</div>

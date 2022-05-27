@@ -1,0 +1,38 @@
+<!-- HEADER & MENU -->
+<div class="header sticky-default">
+    <div class="container">
+        <a href="/">
+            <span class="logo">LOGO</span>
+        </a>
+        <i class="fa fa-navicon" id="mobile-nav-toggle"></i>
+        <div class="header-bs mobile-disable">
+            <i class="fa fa-times" id="menu-close"></i>
+            <div class="header-nav">
+                <ul class="header-menu">
+                    <li class="<%= (path === '/') ? 'active' : '' %>"><a href="/"><i class="fa fa-home"></i> <%= locale.MAIN.HOME %></a></li>
+                    <li class="<%= (path === '/challenges') ? 'active' : '' %>"><a href="/challenges"><i class="fa fa-list"></i> <%= locale.MAIN.CHALLENGES %></a></li>
+                    <li class="<%= (path === '/communities') ? 'active' : '' %>"><a href="/communities"><i class="fa fa-community"></i> <%= locale.MAIN.COMMUNITIES %></a></li>
+                </ul>
+            </div>
+            <% if(locals.signedIn) { %>
+                <div class="header-user">
+					<a href="<%= locals.user.href %>">
+						<div class="header-user-name"><h4><%= locals.user.fullName %></h4></div>
+						<div class="header-user-pic gradient"><img class="lazy"
+								data-src="<%= locals.user.pp.get(0).url %>" src="/images/pix.gif" alt=""></div>
+					</a>
+					<ul class="header-user-dropdown">
+						<li><a href="<%= locals.user.href %>"><%= locale.MAIN.PROFILE %></a></li>
+                        <li><a href="<%= locals.user.href %>#settings"><%= locale.P_PROFILE.SETTINGS %></a></li>
+						<li><a href="/logout"><%= locale.MAIN.LOGOUT %></a></li>
+					</ul>
+				</div>
+            <% } else { %>
+                <div class="header-links">
+                    <a href="/register"><i class="fa fa-user-plus"></i> <%= locale.MAIN.REGISTER %></a>
+                    <a href="/login" class="colored"><i class="fa fa-sign-in"></i> <%= locale.MAIN.LOGIN %></a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>

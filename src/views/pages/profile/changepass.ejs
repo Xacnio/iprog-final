@@ -1,0 +1,39 @@
+<h3 class="light"><%= locale.P_PROFILE.CHANGE_PASS %></h3>
+<% if (typeof active === 'string' && active === 'password') { %>
+    <% if (typeof success === 'string') { %>
+    <div class="al al-success">
+        <%= success %>
+    </div>
+    <% }
+    else if(typeof error === 'string') { %>
+    <div class="al al-danger">
+        <%= error %>
+    </div>
+    <% } %>
+<% } %>
+<form method="post" action="">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <input type="hidden" name="type" value="2" />
+    <div class="form-group">
+        <label for="oldpassword"><%= locale.P_PROFILE.CURRENT_PASS %></label>
+        <input type="password" class="form-input" name="oldpassword" id="oldpassword" required
+            autocomplete="nope" />
+    </div>
+    <div class="form-group">
+        <label for="newpassword"><%= locale.P_PROFILE.NEW_PASS %></label>
+        <input type="password" class="form-input" name="newpassword" id="newpassword" required
+            autocomplete="nope" />
+    </div>
+    <div class="form-group">
+        <label for="newpassword2"><%= locale.P_PROFILE.NEW_PASS %> (<%= locale.P_PROFILE.AGAIN.toLowerCase() %>)</label>
+        <input type="password" class="form-input" name="newpassword2" id="newpassword2" required
+            autocomplete="nope" />
+    </div>
+    <div class="form-group">
+        <input type="checkbox" id="logoutall" name="logoutall" checked="checked" />
+        <label for="logoutall"> <%= locale.P_PROFILE.LOGOUT_ALL_SESSIONS %></label>
+    </div>
+    <div class="form-group-centered">
+        <button type="submit" class="form-button"><%= locale.MAIN.SAVE %></button>
+    </div>
+</form>

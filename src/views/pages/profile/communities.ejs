@@ -1,0 +1,51 @@
+<div class="gallery">
+    <% if(typeof communities === "object" && communities.length > 0) { %>
+        <% for(var i=0; i < communities.length; i++) { %>
+            <div class="gallery-block col-2">
+                <div class="gallery-profile gradient">
+                    <img class="lazy" data-src="<%= communities[i].pp.get(1).url %>" alt="ch"
+                        src="/images/pix.gif" />
+                </div>
+                <div class="gallery-title">
+                    <a href="<%= communities[i].href %>"><%= communities[i].fullName %></a>
+                </div>
+            </div>
+        <% } %>
+    <% } else { %>
+        <div class="al al-danger"><%= locale.P_COMMUNITIES.NOT_EXIST %></div>
+    <% } %>
+</div>
+<div class="clear"></div>
+<% if(self) { %>
+    <hr>
+    <h3 class="light"><%= locale.format(locale.P_COMMUNITY.CREATE, locale.P_COMMUNITY.TITLE) %></h3>
+    <% if (typeof active === 'string' && active === 'communities') { %>
+        <% if (typeof success === 'string') { %>
+        <div class="al al-success">
+            <%= success %>
+        </div>
+        <% }
+        else if(typeof error === 'string') { %>
+        <div class="al al-danger">
+            <%= error %>
+        </div>
+        <% } %>
+    <% } %>
+    <form method="post" action="/community/create?_csrf=<%= csrfToken %>" enctype="multipart/form-data" autocomplete="off">
+        <div class="form-group">
+            <label for="cphoto"><%= locale.MAIN.PROFILE_PHOTO %></label>
+            <div class="form-photo-select pp">
+                <span><%= locale.MAIN.SELECT_PHOTO %></span>
+                <input type="file" id="chphoto" name="chphoto" class="form-input-photo"
+                    accept="image/jpeg,image/png">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cname"><%= locale.MAIN.NAME %></label>
+            <input type="text" class="form-input" name="name" id="name" required value="<%= (typeof fields_cmt !== 'undefined') ? fields_cmt.name : '' %>" />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="form-button"><%= locale.MAIN.CREATE %></button>
+        </div>
+    </form>
+<% } %>

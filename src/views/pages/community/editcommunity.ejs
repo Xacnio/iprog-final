@@ -1,0 +1,41 @@
+<h3 class="light"><%= locale.P_COMMUNITY.EDIT %></h3>
+<% if (typeof active === 'string' && active === 'edit') { %>
+    <% if (typeof success === 'string') { %>
+    <div class="al al-success">
+        <%= success %>
+    </div>
+    <% }
+    else if(typeof error === 'string') { %>
+    <div class="al al-danger">
+        <%= error %>
+    </div>
+    <% } %>
+<% } %>
+<form method="post" action="?_csrf=<%= csrfToken %>" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="form-photo-select pp"
+            style="background-image: -webkit-linear-gradient(rgb(0 195 255 / 63%), rgb(0 0 0 / 63%)), url(<%= community.pp.get(1).url %>);color: white !important;">
+            <span><%= locale.MAIN.SELECT_PHOTO %></span>
+            <input type="file" id="chphoto" name="chphoto" class="form-input-photo"
+                accept="image/jpeg,image/png">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name"><%= locale.MAIN.NAME %></label>
+        <input type="text" class="form-input" name="name" id="name" required autocomplete="nope"
+            value="<%= (typeof fields !== 'undefined') ? fields.name : community.fullName %>" />
+    </div>
+    <div class="form-group">
+        <label for="name"><%= locale.MAIN.USERNAME %></label>
+        <input type="text" class="form-input" name="username" id="username" required autocomplete="nope"
+            value="<%= (typeof fields !== 'undefined') ? fields.username : community.displayUsername %>" />
+    </div>
+    <div class="form-group">
+        <label for="cdesc"><%= locale.P_COMMUNITY.ABOUT_US %></label>
+        <textarea name="cdesc" id="cdesc" class="form-input"><%= (typeof fields !== 'undefined') ? fields.cdesc : community.aboutUs %></textarea>
+        <div class="form-input-desc"><a href="https://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a></div>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="form-button"><%= locale.MAIN.SAVE %></button>
+    </div>
+</form>

@@ -1,0 +1,55 @@
+<h3 class="light"><%= locale.P_CHALLENGE.EDIT %></h3>
+<form method="post" action="?_csrf=<%= csrfToken %>" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="cphoto"><%= locale.MAIN.PHOTO %></label>
+        <div class="form-photo">
+            <div class="form-photo-select ch" style="background-image: -webkit-linear-gradient(rgb(0 195 255 / 63%), rgb(0 0 0 / 63%)), url(<%= challenge.pp.get(1).url %>);color: white !important;">
+                <span><%= locale.MAIN.SELECT_PHOTO %></span>
+                <input type="file" id="chphoto" name="chphoto" class="form-input-photo"
+                    accept="image/jpeg,image/png">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name"><%= locale.MAIN.NAME %></label>
+        <input type="text" class="form-input" name="chname" id="chname" required autocomplete="nope"
+            value="<%= (typeof fields !== 'undefined') ? fields.name : challenge.fullName %>" />
+    </div>
+    <div class="form-group">
+        <label for="cdesc"><%= locale.MAIN.DESC %></label>
+        <textarea name="chdesc" id="chdesc" class="form-input"><%= (typeof fields !== 'undefined') ? fields.cdesc : challenge.description %></textarea>
+        <div class="form-input-desc"><a href="https://en.wikipedia.org/wiki/Markdown" target="_blank">Markdown</a></div>
+    </div>
+    <div class="form-group">
+        <label for="chstatus"><%= locale.MAIN.STATUS %></label>
+        <select name="chstatus" class="form-input">
+            <option value="0"<%= (!challenge.terminated) ? ' selected' : '' %>><%= locale.P_CHALLENGE.STATUS_ACTIVE %></option>
+            <option value="1"<%= (challenge.terminated) ? ' selected' : '' %>><%= locale.P_CHALLENGE.STATUS_TERMINATED %></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="form-button"><%= locale.MAIN.SAVE %></button>
+    </div>
+</form>
+<% if(challenge.terminated) { %>
+    <hr>
+    <h3 class="light"><%= locale.P_CHALLENGE.ZIP_ARCHIVE.CREATE %></h3>
+    <% if(challenge.fileArchive !== "process") { %>
+        <% if(challenge.fileArchive === 'error') { %>
+            <div class="al al-danger">
+                <%= locale.P_CHALLENGE.ZIP_ARCHIVE.ERROR %>
+            </div>
+        <% } %>
+        <% if(challenge.fileArchive !== null && challenge.fileArchive !== 'error') { %>
+            <a href="/archives/<%= challenge.fileArchive.split('|')[0] %>.zip" target="_blank"><button type="button" class="form-button"><%= locale.MAIN.DOWNLOAD %></button></a>
+        <% } %>
+        <form method="post" action="<%= challenge.href %>/zip">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <button type="submit" class="form-button"><%= locale.P_CHALLENGE.ZIP_ARCHIVE.CREATE %></button>
+        </form>
+    <% } else { %>
+        <div class="al al-success">
+            <%= locale.P_CHALLENGE.ZIP_ARCHIVE.PROCESS %>
+        </div>
+    <% } %>
+<% } %>

@@ -1,0 +1,103 @@
+<% if(permed == 2) { %>
+    <a href="<%= challenge.href %>/edit" style="float:right;"><button class="form-button"><%= locale.MAIN.ADMIN %></button></a>
+<% } %>
+<div class="block">
+    <h3><%= locale.MAIN.DESC %></h3>
+    <p><%- md(challenge.description) %></p>
+</div>
+<hr>
+<div class="block">
+    <% if(typeof contributions !== 'object' || contributions.length === 0) { %>
+        <h3><%= locale.format(locale.P_CHALLENGE.LAST_X_UPLOAD, 10) %></h3>
+        <div class="blck">
+            <div class="white-bg">
+                <div class="blck-content">
+                    <div class="text"><%= locale.MAIN.NO_DATA %></div>
+                    <div class="button"><a href="<%= challenge.href %>/join"><button type="button" class="form-button2"><%= locale.P_CHALLENGE.JOIN_NOW %></button></a></div>
+                </div>
+            </div>
+        </div>
+    <% } else { %>
+        <h3><%= locale.format(locale.P_CHALLENGE.LAST_X_UPLOAD, contributions.length) %></h3>
+        <div class="photo-gallery">
+            <% if(contributions.length < 5) { %>
+                <% for(var i=0; i < contributions.length; i++) { %>
+                    <div class="gallery-block col-3">
+                        <div class="gallery-image gradient">
+                            <a href="<%= contributions[i].image.get(1).url %>" target="_blank"><img class="lazy" data-src="<%= contributions[i].image.get(0).url %>" alt=""
+                                src="/images/pix.gif" /></a>
+                        </div>
+                    </div>
+                <% } %>
+                <div class="clear"></div>
+            <% } else { %>
+                <div class="photos">
+                    <% for(var i=0; i < contributions.length; i++) { %>
+                        <div class="gallery-block col-3">
+                            <div class="gallery-image gradient">
+                                <a href="<%= contributions[i].image.get(1).url %>" target="_blank"></a><img class="lazy" data-src="<%= contributions[i].image.get(0).url %>" alt=""
+                                    src="/images/pix.gif" /></a>
+                            </div>
+                        </div>
+                    <% } %>
+                    <div class="clear"></div>
+                </div>
+                <ul class="slide-buttons">
+                    <li><button type="button" class="form-button" action="prev"><i
+                                class="fa fa-arrow-left"></i></button>
+                    </li>
+                    <li><button type="button" class="form-button" action="next"><i
+                                class="fa fa-arrow-right"></i></button>
+                    </li>
+                </ul>
+            <% } %>
+        </div>
+    <% } %>
+</div>
+<hr>
+<div class="block">
+    <h3 id="contributions"><%= locale.P_CHALLENGE.CONTRIBUTIONS %></h3>
+    <% if(typeof contributors !== 'object' || contributors.length === 0) { %>
+        <div class="blck">
+            <div class="white-bg">
+                <div class="blck-content">
+                    <div class="text"><%= locale.MAIN.NO_DATA %></div>
+                    <div class="button"><a href="<%= challenge.href %>/join"><button type="button" class="form-button2"><%= locale.P_CHALLENGE.JOIN_NOW %></button></a></div>
+                </div>
+            </div>
+        </div>
+    <% } else { %>
+        <div class="user-list-mini">
+            <% for(let i=0; i < contributors.length; i++) { %>
+                <a href="<%= contributors[i].href %>">
+                    <div class="user-list-mini-cn gradient">
+                        <div class="tooltip"><%= contributors[i].fullName %></div>
+                        <img class="lazy" data-src="<%= contributors[i].pp.get(0).url %>" alt="" src="/images/pix.gif" />
+                    </div>
+                </a>
+            <% } %>
+        </div>
+    <% } %>
+</div>
+<hr>
+<div class="block">
+<h3 id="download"><%= locale.MAIN.DOWNLOAD %></h3>
+<% if(challenge.fileArchive === null || challenge.fileArchive === 'process' || challenge.fileArchive === 'error') { %>
+    <div class="blck">
+        <div class="white-bg">
+            <div class="blck-content">
+                <div class="text"><%= locale.P_CHALLENGE.NO_DOWNLOAD %></div>
+            </div>
+        </div>
+    </div>
+<% } else { %>
+    <div class="blck">
+        <div class="white-bg">
+            <div class="blck-content">
+                <div class="text"><%= challenge.fileArchive.split('|')[0] %>.zip<br><%= pb(challenge.fileArchive.split('|')[1]) %></div>
+                <div class="button"><a href="/archives/<%= challenge.fileArchive.split('|')[0] %>.zip" target="_blank"><button type="button" class="form-button"><%= locale.MAIN.DOWNLOAD %></button></a></div>
+            </div>
+        </div>
+    </div>
+<% } %>
+</div>

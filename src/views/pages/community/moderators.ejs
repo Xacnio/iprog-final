@@ -1,0 +1,50 @@
+<% if(typeof community.creator === 'object') { %>
+    <div class="gallery-block col-2">
+        <div class="gallery-profile gradient">
+            <img class="lazy" data-src="<%= community.creator.pp.get(1).url %>" alt="ch" src="/images/pix.gif" />
+        </div>
+        <div class="gallery-title">
+            <a href="<%= community.creator.href %>"><%= community.creator.fullName %></a><br>
+            <%= locale.MAIN.CREATOR %><br>
+            @<%= community.creator.displayUsername %>
+        </div>
+    </div>
+<% } %>
+<% if(community.moderators.length > 0) { %>
+    <% for(var i=0; i < community.moderators.length; i++) { %>
+        <div class="gallery-block col-2">
+            <div class="gallery-profile gradient">
+                <img class="lazy" data-src="<%= community.moderators[i].pp.get(1).url %>" alt="ch" src="/images/pix.gif" />
+            </div>
+            <div class="gallery-title">
+                <a href="<%= community.moderators[i].href %>"><%= community.moderators[i].fullName %></a><br>
+                    <%= locale.MAIN.MODERATOR %><br>
+                    @<%= community.moderators[i].displayUsername %>
+            </div>
+        </div>
+    <% } %>
+<% } %>
+<div class="clear"></div>
+<h3 class="light"><%= locale.MAIN.MODERATOR %> <%= locale.MAIN.ADD_RM %></h3>
+<% if (typeof active === 'string' && active === 'moderators') { %>
+    <% if (typeof success === 'string') { %>
+    <div class="al al-success">
+        <%= success %>
+    </div>
+    <% }
+    else if(typeof error === 'string') { %>
+    <div class="al al-danger">
+        <%= error %>
+    </div>
+    <% } %>
+<% } %>
+<form method="post" action="<%= community.href %>/togglemod" autocomplete="off">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <div class="form-group">
+        <label for="cname"><%= locale.MAIN.USERNAME %></label>
+        <input type="text" class="form-input" name="username" id="username" required value="<%= (typeof fields_mdt !== 'undefined') ? fields_mdt.username : '' %>" />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="form-button"><%= locale.MAIN.ADD_RM %></button>
+    </div>
+</form>

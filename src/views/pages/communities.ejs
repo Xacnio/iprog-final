@@ -1,0 +1,29 @@
+<div class="block">
+    <h3 class="title light"><%= locale.MAIN.COMMUNITIES %></h3>
+    <form method="get" action="">
+        <div class="form-group col-3">
+            <input type="text" class="form-input" name="q" placeholder="<%= locale.MAIN.SEARCH %>..." value="<%= pageInfo.key %>" autocomplete="nope" />
+        </div>
+    </form>
+    <div class="clear"></div>
+    <div class="gallery" style="margin-top:30px;">
+        <% if(data.length === 0) { %>
+            <div class="al al-danger"><%= locale.P_COMMUNITIES.NOT_FOUND %></div>
+        <% } else { %>
+            <% for(var i=0; i < data.length; i++) { %>
+                <div class="gallery-block col-2">
+                    <div class="gallery-profile gradient">
+                        <img class="lazy" data-src="<%= data[i].pp.get(1).url %>" alt="ch" src="/images/pix.gif" />
+                    </div>
+                    <div class="gallery-title">
+                        <a href="<%= data[i].href %>"><%= data[i].fullName %></a>
+                    </div>
+                </div>
+            <% } %>
+        <% } %>
+        <div class="clear"></div>
+        <div class="gallery-end">
+            <%- include('../partials/pager') %>
+        </div>
+    </div>
+</div>
