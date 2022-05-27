@@ -81,8 +81,7 @@ async function getContributionsAll(obj, page, elementPerPage, reverse) {
             pageInfo.before = (page === 0) ? false : page - 1;
         }
         pageInfo.totalData = totalCount;
-
-        let contrs = await Contribution.find(obj).skip(_skip).limit(_limit).sort({ reviewDate: (reverse) ? -1 : 1 });
+        let contrs = await Contribution.find(obj).skip((_skip < 0) ? undefined : _skip).limit((_limit == -1) ? undefined : _limit).sort({ reviewDate: (reverse) ? -1 : 1 });
         return [null, contrs, pageInfo]
     } catch (err) {
         console.error(err)

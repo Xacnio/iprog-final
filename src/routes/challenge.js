@@ -66,7 +66,7 @@ module.exports = () => {
                 }
                 const [__, contrs] = await getContributionsAll({ challenge: u.challenge, status: 1 }, 0, -1);
                 let photos = [];
-                if (contrs != null || contrs.length === 0) {
+                if (contrs != null && contrs.length > 0) {
                     if (challenge.fileArchive !== null && challenge.fileArchive !== "error") {
                         deleteArchive(challenge.fileArchive.split('|')[0])
                     }
